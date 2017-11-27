@@ -1,0 +1,3 @@
+[submodule "elcord"]
+	path = elcord
+	url = git://github.com/Mstrodl/elcord.git
