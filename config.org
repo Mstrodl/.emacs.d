@@ -1,0 +1,151 @@
+#+TITLE: Emacs Configuration
+#+OPTIONS: 
+
+
+* Foreword
+  First things first, I just want to talk about what exactly this is; this is my init.el converted into an org file which is loaded by my one-line init.el which loads this org file and mangles the codeblocks in this org file and executes them
+* MELPA
+Yay MELPA is always nice!
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(add-to-list 'package-archives
+             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+#+END_SRC
+* Useful things
+** Shortcut to need a package, installing if necessary
+Installs a package if needed and require it
+#+BEGIN_SRC emacs-lisp 
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
+#+END_SRC
+** Check if networkmanager is online
+Checks for networkmanager online-ness for elcord init
+#+BEGIN_SRC emacs-lisp
+(require 'dbus)
+(defun nm-is-connected()
+  (equal 70 (dbus-get-property
+             :system "org.freedesktop.NetworkManager" "/org/freedesktop/NetworkManager"
+             "org.freedesktop.NetworkManager" "State")))
+#+END_SRC
+* eVIl mode
+** Initialise
+Require evil so we can vim good!
+#+BEGIN_SRC emacs-lisp
+(require-package 'evil)
+(evil-mode t)
+#+END_SRC
+* Options
+** Hide startup screen
+Hides the startup screen and jump straight to scratch buffer
+#+BEGIN_SRC emacs-lisp
+(setf inhibit-startup-screen t)
+#+END_SRC
+** Indent levels
+Sets my indent levels to 2 spaces
+#+BEGIN_SRC emacs-lisp
+(setf js-indent-level 2)
+(setf standard-indent 2)
+#+END_SRC
+** Disable Bell
+The bell is annoying since it beeps
+#+BEGIN_SRC emacs-lisp
+(setf ring-bell-function (quote ignore))
+#+END_SRC
+** Mail options
+So I can send mail like RMS says...
+#+BEGIN_SRC emacs-lisp
+(setf send-mail-function (quote smtpmail-send-it))
+(setf smtpmail-smtp-server "mail.twc.com")
+(setf smtpmail-smtp-service 25)
+#+END_SRC
+** Evil options
+*** Searching
+Set our search module that evil mode uses
+#+BEGIN_SRC emacs-lisp
+(setq evil-search-module 'evil-search)
+#+END_SRC
+*** I have no idea what this does
+Seriously it's scrolling or something I have no idea
+#+BEGIN_SRC emacs-lisp
+(setq evil-want-C-u-scroll t
+      evil-want-C-w-in-emacs-state t)
+#+END_SRC
+** Keybinds
+*** Org mode
+Org mode keybinds!
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+#+END_SRC 
+** UI Tweaks
+*** Hide Scrollbar
+I think the scrollbar is ugly and takes up too much space, so I hide it
+#+BEGIN_SRC emacs-lisp
+(toggle-scroll-bar -1)
+#+END_SRC 
+*** Hide Toolbar
+The toolbar is dumb, I have my VIM bindings!!
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode -1)
+#+END_SRC
+* Packages
+** Load our pacakges!
+*** Utilities
+#+BEGIN_SRC emacs-lisp
+(require-package 'package-lint)
+(require-package 'flycheck)
+(require-package 'auto-complete)
+#+END_SRC
+*** Major modes
+Assorted major modes...
+#+BEGIN_SRC emacs-lisp
+(require-package 'rust-mode)
+(require-package 'markdown-mode+)
+(require-package 'rjsx-mode)
+(require-package 'flycheck)
+#+END_SRC
+**** Org mode
+Org mode is good!
+#+BEGIN_SRC emacs-lisp
+(require-package 'org)
+#+END_SRC
+*** Hook-ins
+Hook-ins with other programs
+**** Elcord
+Elcord lets us send rich presence!
+#+BEGIN_SRC emacs-lisp
+;; soon™
+;; (require-package 'elcord)
+(when (nm-is-connected)
+  (defvar elcord-no-autoconnect t))
+(defvar elcord-no-autoconnect t)
+(load-file "~/.emacs.d/elcord/elcord.el")
+(setq elcord-join-and-spectate t)
+#+END_SRC
+   
+**** Wakatime
+Load our wakatime shtuff
+#+BEGIN_SRC emacs-lisp
+(require-package 'wakatime-mode)
+#+END_SRC
+* Aesthetics
+** Load theme
+Load our theme to make us look nice
+#+BEGIN_SRC emacs-lisp
+(defvar custom-safe-themes t)
+(setf custom-safe-themes
+  (quote
+    ("ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" default)))
+(require-package 'dracula-theme)
+(load-theme 'dracula t)
+#+END_SRC

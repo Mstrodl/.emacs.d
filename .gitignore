@@ -1,3 +1,6 @@
+*.html
+*.tex
+session.*
 *~
 auto-save-list/*
 elpa/*
