@@ -27,6 +27,8 @@ re-downloaded in order to locate PACKAGE."
 
 (setq org-src-tab-acts-natively t)
 
+(setq org-src-fontify-natively t)
+
 (setf inhibit-startup-screen t)
 
 (setf js-indent-level 2)
@@ -63,10 +65,12 @@ re-downloaded in order to locate PACKAGE."
 
 ;; soon™
 ;; (require-package 'elcord)
-(when (nm-is-connected)
-  (defvar elcord-no-autoconnect t))
+;; (unless (nm-is-connected)
+;;   (defvar elcord-no-autoconnect t))
 (defvar elcord-no-autoconnect t)
-(load-file "~/.emacs.d/elcord/elcord.el")
+(if (file-exists-p "~/projects/elcord/elcord.el")
+  (load-file "~/projects/elcord/elcord.el")
+  (load-file "~/.emacs.d/elcord/elcord.el"))
 (setq elcord-join-and-spectate t)
 
 (require-package 'wakatime-mode)

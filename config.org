@@ -50,6 +50,11 @@ Indents code in org mode source blocks.
 #+BEGIN_SRC emacs-lisp
 (setq org-src-tab-acts-natively t)
 #+END_SRC
+** Babel syntax highlighting
+It's ugly seeing yellow code blocks in my emacs config! Let's fix that!
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
 ** Hide startup screen
 Hides the startup screen and jump straight to scratch buffer
 #+BEGIN_SRC emacs-lisp
@@ -131,10 +136,11 @@ Elcord lets us send rich presence!
 #+BEGIN_SRC emacs-lisp
 ;; soon™
 ;; (require-package 'elcord)
-(when (nm-is-connected)
+(unless (nm-is-connected)
   (defvar elcord-no-autoconnect t))
-(defvar elcord-no-autoconnect t)
-(load-file "~/.emacs.d/elcord/elcord.el")
+(if (file-exists-p "~/projects/elcord/elcord.el")
+  (load-file "~/projects/elcord/elcord.el")
+  (load-file "~/.emacs.d/elcord/elcord.el"))
 (setq elcord-join-and-spectate t)
 #+END_SRC
    
