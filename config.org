@@ -45,6 +45,11 @@ Require evil so we can vim good!
 (evil-mode t)
 #+END_SRC
 * Options
+** Indent babel source blocks
+Indents code in org mode source blocks.
+#+BEGIN_SRC emacs-lisp
+(setq org-src-tab-acts-natively t)
+#+END_SRC
 ** Hide startup screen
 Hides the startup screen and jump straight to scratch buffer
 #+BEGIN_SRC emacs-lisp
