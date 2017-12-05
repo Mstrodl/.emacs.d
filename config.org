@@ -58,25 +58,26 @@ It's ugly seeing yellow code blocks in my emacs config! Let's fix that!
 ** Hide startup screen
 Hides the startup screen and jump straight to scratch buffer
 #+BEGIN_SRC emacs-lisp
-(setf inhibit-startup-screen t)
+(setq inhibit-startup-screen t)
 #+END_SRC
 ** Indent levels
 Sets my indent levels to 2 spaces
 #+BEGIN_SRC emacs-lisp
-(setf js-indent-level 2)
-(setf standard-indent 2)
+(setq js-indent-level 2)
+(setq standard-indent 2)
 #+END_SRC
 ** Disable Bell
 The bell is annoying since it beeps
-#+BEGIN_SRC emacs-lisp
-(setf ring-bell-function (quote ignore))
+#+BEGIN_SRC emacs-lisp 
+;; (setq ring-bell-function (quote ignore))
+(setq visible-bell 1)
 #+END_SRC
 ** Mail options
 So I can send mail like RMS says...
 #+BEGIN_SRC emacs-lisp
-(setf send-mail-function (quote smtpmail-send-it))
-(setf smtpmail-smtp-server "mail.twc.com")
-(setf smtpmail-smtp-service 25)
+(setq send-mail-function (quote smtpmail-send-it))
+(setq smtpmail-smtp-server "mail.twc.com")
+(setq smtpmail-smtp-service 25)
 #+END_SRC
 ** Evil options
 *** Searching
@@ -136,11 +137,11 @@ Elcord lets us send rich presence!
 #+BEGIN_SRC emacs-lisp
 ;; soon™
 ;; (require-package 'elcord)
-(unless (nm-is-connected)
-  (defvar elcord-no-autoconnect t))
 (if (file-exists-p "~/projects/elcord/elcord.el")
   (load-file "~/projects/elcord/elcord.el")
   (load-file "~/.emacs.d/elcord/elcord.el"))
+(when (nm-is-connected)
+  (elcord-connect))
 (setq elcord-join-and-spectate t)
 #+END_SRC
    
@@ -154,7 +155,7 @@ Load our wakatime shtuff
 Load our theme to make us look nice
 #+BEGIN_SRC emacs-lisp
 (defvar custom-safe-themes t)
-(setf custom-safe-themes
+(setq custom-safe-themes
   (quote
     ("ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" default)))
 (require-package 'dracula-theme)

@@ -29,16 +29,17 @@ re-downloaded in order to locate PACKAGE."
 
 (setq org-src-fontify-natively t)
 
-(setf inhibit-startup-screen t)
+(setq inhibit-startup-screen t)
 
-(setf js-indent-level 2)
-(setf standard-indent 2)
+(setq js-indent-level 2)
+(setq standard-indent 2)
 
-(setf ring-bell-function (quote ignore))
+;; (setq ring-bell-function (quote ignore))
+(setq visible-bell 1)
 
-(setf send-mail-function (quote smtpmail-send-it))
-(setf smtpmail-smtp-server "mail.twc.com")
-(setf smtpmail-smtp-service 25)
+(setq send-mail-function (quote smtpmail-send-it))
+(setq smtpmail-smtp-server "mail.twc.com")
+(setq smtpmail-smtp-service 25)
 
 (setq evil-search-module 'evil-search)
 
@@ -65,18 +66,17 @@ re-downloaded in order to locate PACKAGE."
 
 ;; soon™
 ;; (require-package 'elcord)
-;; (unless (nm-is-connected)
-;;   (defvar elcord-no-autoconnect t))
-(defvar elcord-no-autoconnect t)
 (if (file-exists-p "~/projects/elcord/elcord.el")
   (load-file "~/projects/elcord/elcord.el")
   (load-file "~/.emacs.d/elcord/elcord.el"))
+(when (nm-is-connected)
+  (elcord-connect))
 (setq elcord-join-and-spectate t)
 
 (require-package 'wakatime-mode)
 
 (defvar custom-safe-themes t)
-(setf custom-safe-themes
+(setq custom-safe-themes
   (quote
     ("ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" default)))
 (require-package 'dracula-theme)
