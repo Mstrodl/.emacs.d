@@ -10,6 +10,8 @@ Yay MELPA is always nice!
 (require 'package)
 (add-to-list 'package-archives
              '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 #+END_SRC
 * Useful things
@@ -50,6 +52,11 @@ Indents code in org mode source blocks.
 #+BEGIN_SRC emacs-lisp
 (setq org-src-tab-acts-natively t)
 #+END_SRC
+** Debug on error
+Debug our errors when they come
+#+BEGIN_SRC emacs-lisp
+(setf debug-on-error t)
+#+END_SRC
 ** Babel syntax highlighting
 It's ugly seeing yellow code blocks in my emacs config! Let's fix that!
 #+BEGIN_SRC emacs-lisp
@@ -83,7 +90,7 @@ So I can send mail like RMS says...
 *** Searching
 Set our search module that evil mode uses
 #+BEGIN_SRC emacs-lisp
-(setq evil-search-module 'evil-search)
+; (setq evil-search-module 'evil-search)
 #+END_SRC
 *** I have no idea what this does
 Seriously it's scrolling or something I have no idea
@@ -98,11 +105,17 @@ Org mode keybinds!
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 #+END_SRC 
+** Mastodon
+Set our mastodon instance url
+#+BEGIN_SRC emacs-lisp 
+(setq mastodon-instance-url "https://mastodon.memework.org")
+#+END_SRC
 ** UI Tweaks
 *** Hide Scrollbar
 I think the scrollbar is ugly and takes up too much space, so I hide it
 #+BEGIN_SRC emacs-lisp
-(toggle-scroll-bar -1)
+(when (display-graphic-p)
+  (toggle-scroll-bar -1))
 #+END_SRC 
 *** Hide Toolbar
 The toolbar is dumb, I have my VIM bindings!!
@@ -116,6 +129,8 @@ The toolbar is dumb, I have my VIM bindings!!
 (require-package 'package-lint)
 (require-package 'flycheck)
 (require-package 'auto-complete)
+(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
 #+END_SRC
 *** Major modes
 Assorted major modes...
@@ -124,6 +139,7 @@ Assorted major modes...
 (require-package 'markdown-mode+)
 (require-package 'rjsx-mode)
 (require-package 'flycheck)
+(require-package 'mastodon)
 #+END_SRC
 **** Org mode
 Org mode is good!
@@ -140,9 +156,13 @@ Elcord lets us send rich presence!
 (if (file-exists-p "~/projects/elcord/elcord.el")
   (load-file "~/projects/elcord/elcord.el")
   (load-file "~/.emacs.d/elcord/elcord.el"))
-(when (nm-is-connected)
-  (elcord-connect))
-(setq elcord-join-and-spectate t)
+(defun elcord-slow-connect ()
+  "Checks network manager later"
+  (if (nm-is-connected)
+    (elcord-connect)
+    (run-at-time "10 sec" nil 'elcord-slow-connect))
+  (setq elcord-join-and-spectate t))
+;; (run-at-time "5 sec" nil 'elcord-slow-connect)
 #+END_SRC
    
 **** Wakatime
