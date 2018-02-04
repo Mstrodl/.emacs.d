@@ -83,7 +83,7 @@ The bell is annoying since it beeps
 So I can send mail like RMS says...
 #+BEGIN_SRC emacs-lisp
 (setq send-mail-function (quote smtpmail-send-it))
-(setq smtpmail-smtp-server "mail.twc.com")
+(setq smtpmail-smtp-server "mail.memework.org")
 (setq smtpmail-smtp-service 25)
 #+END_SRC
 ** Evil options
@@ -162,13 +162,19 @@ Elcord lets us send rich presence!
     (elcord-connect)
     (run-at-time "10 sec" nil 'elcord-slow-connect))
   (setq elcord-join-and-spectate t))
-;; (run-at-time "5 sec" nil 'elcord-slow-connect)
+(run-at-time "5 sec" nil 'elcord-slow-connect)
 #+END_SRC
    
 **** Wakatime
 Load our wakatime shtuff
 #+BEGIN_SRC emacs-lisp
 (require-package 'wakatime-mode)
+#+END_SRC
+**** Prettier
+Prettier lets us format stuff automatically!
+#+BEGIN_SRC emacs-lisp
+(require-package 'prettier-js)
+(add-hook 'js-mode-hook 'prettier-js-mode)
 #+END_SRC
 * Aesthetics
 ** Load theme
