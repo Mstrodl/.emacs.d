@@ -72,6 +72,7 @@ Sets my indent levels to 2 spaces
 #+BEGIN_SRC emacs-lisp
 (setq js-indent-level 2)
 (setq standard-indent 2)
+(setq py-indent-level 2)
 #+END_SRC
 ** Disable Bell
 The bell is annoying since it beeps
@@ -140,6 +141,7 @@ Assorted major modes...
 (require-package 'rjsx-mode)
 (require-package 'flycheck)
 (require-package 'mastodon)
+(require-package 'pug-mode)
 #+END_SRC
 **** Org mode
 Org mode is good!
@@ -156,19 +158,14 @@ Elcord lets us send rich presence!
 (if (file-exists-p "~/projects/elcord/elcord.el")
   (load-file "~/projects/elcord/elcord.el")
   (load-file "~/.emacs.d/elcord/elcord.el"))
-(defun elcord-slow-connect ()
-  "Checks network manager later"
-  (if (nm-is-connected)
-    (elcord-connect)
-    (run-at-time "10 sec" nil 'elcord-slow-connect))
-  (setq elcord-join-and-spectate t))
-(run-at-time "5 sec" nil 'elcord-slow-connect)
+(elcord-mode)
 #+END_SRC
    
 **** Wakatime
 Load our wakatime shtuff
 #+BEGIN_SRC emacs-lisp
 (require-package 'wakatime-mode)
+(global-wakatime-mode)
 #+END_SRC
 **** Prettier
 Prettier lets us format stuff automatically!
