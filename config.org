@@ -130,8 +130,10 @@ The toolbar is dumb, I have my VIM bindings!!
 (require-package 'package-lint)
 (require-package 'flycheck)
 (require-package 'auto-complete)
-(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
-(autoload 'tern-mode "tern.el" nil t)
+(setq tramp-default-method "ssh")
+
+;; (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
+;; (autoload 'tern-mode "tern.el" nil t)
 #+END_SRC
 *** Major modes
 Assorted major modes...
@@ -142,6 +144,14 @@ Assorted major modes...
 (require-package 'flycheck)
 (require-package 'mastodon)
 (require-package 'pug-mode)
+(require-package 'xelb)
+(require-package 'exwm)
+(require-package 'emms)
+
+(setq mouse-autoselect-window t
+      focus-follows-mouse t)
+(require 'exwm-config)
+(exwm-config-default)
 #+END_SRC
 **** Org mode
 Org mode is good!
@@ -150,6 +160,22 @@ Org mode is good!
 #+END_SRC
 *** Hook-ins
 Hook-ins with other programs
+**** Tern
+#+BEGIN_SRC emacs-lisp
+(require-package 'company)
+(require-package 'company-tern)
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'company-tern))
+(add-hook 'js-mode-hook (lambda ()
+                           (tern-mode)
+                           (company-mode)))
+(defvar company-idle-delay 0)
+(defvar company-minimum-prefix-length 1)
+(defvar company-show-numbers t)
+(defvar company-tooltip-idle-delay 0.0)
+;; (define-key tern-mode-keymap (kbd "M-.") nil)
+;; (define-key tern-mode-keymap (kbd "M-,") nil)
+#+END_SRC
 **** Elcord
 Elcord lets us send rich presence!
 #+BEGIN_SRC emacs-lisp

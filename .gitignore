@@ -8,3 +8,5 @@ session.*
 auto-save-list/*
 elpa/*
 url/*
+image-dired
+emms/history

@@ -66,6 +66,24 @@
 
 ;; (load-theme
 ;;   'dracula)
+;; (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+;;  '(company-idle-delay 0)
+;;  '(company-minimum-prefix-length 0)
+;;  '(company-show-numbers t)
+;;  '(company-tooltip-idle-delay 0.0)
+;;  '(package-selected-packages
+;;    (quote
+;;     (mastodon wakatime-mode rust-mode rjsx-mode package-lint markdown-preview-mode markdown-mode+ flycheck evil elcord dracula-theme auto-complete))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -73,7 +91,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (mastodon wakatime-mode rust-mode rjsx-mode package-lint markdown-preview-mode markdown-mode+ flycheck evil elcord dracula-theme auto-complete))))
+    (emms-player-mpv emms wakatime-mode rust-mode rjsx-mode pug-mode prettier-js package-lint mastodon markdown-preview-mode markdown-mode+ flycheck exwm evil elcord dracula-theme company-tern auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
