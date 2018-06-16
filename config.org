@@ -39,6 +39,19 @@ Checks for networkmanager online-ness for elcord init
              :system "org.freedesktop.NetworkManager" "/org/freedesktop/NetworkManager"
              "org.freedesktop.NetworkManager" "State")))
 #+END_SRC
+** Create a scratch buffer
+#+BEGIN_SRC emacs-lisp
+(defun create-scratch-buffer ()
+   "create a scratch buffer"
+   (interactive)
+   (switch-to-buffer (get-buffer-create "*scratch*"))
+   (lisp-interaction-mode)) 
+(defun create-js-scratch-buffer ()
+   "create a JS scratch buffer"
+   (interactive)
+   (switch-to-buffer (get-buffer-create "*js-scratch*"))
+   (js-mode)) 
+#+END_SRC
 * eVIl mode
 ** Initialise
 Require evil so we can vim good!
@@ -106,6 +119,13 @@ Org mode keybinds!
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 #+END_SRC 
+*** Scratch stuff
+Scratch buffers are super useful! C-x j opens a JS scratch buffer
+# and C-x s opens an elisp scratch buffer 
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-xj" 'create-js-scratch-buffer)
+;; (define-key global-map "\C-xs" 'create-scratch-buffer)
+#+END_SRC
 ** Mastodon
 Set our mastodon instance url
 #+BEGIN_SRC emacs-lisp 
@@ -146,22 +166,36 @@ Assorted major modes...
 (require-package 'pug-mode)
 (require-package 'xelb)
 (require-package 'exwm)
+
+(require-package 'jabber)
+;; (jabber-connect-all)
+;; (jabber-display-roster)
 (require-package 'emms)
 
 (setq mouse-autoselect-window t
       focus-follows-mouse t)
-(require 'exwm-config)
-(exwm-config-default)
+;; (require 'exwm-config)
+;; (exwm-config-default)
 #+END_SRC
 **** Org mode
 Org mode is good!
 #+BEGIN_SRC emacs-lisp
 (require-package 'org)
 #+END_SRC
+**** Erlang
+Erlang is a good...........
+#+BEGIN_SRC emacs-lisp
+(setq load-path (cons "/usr/lib/erlang/lib/tools-2.11.2/emacs" load-path))
+(setq erlang-root-dir "/usr/lib/erlang")
+(setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+(require 'erlang-start)
+#+END_SRC
 *** Hook-ins
 Hook-ins with other programs
 **** Tern
 #+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'tern
+  (add-to-list 'tern-command "/home/heatingdevice/.config/yarn/global/node_modules/.bin/tern"))
 (require-package 'company)
 (require-package 'company-tern)
 (with-eval-after-load 'company
@@ -198,6 +232,7 @@ Prettier lets us format stuff automatically!
 #+BEGIN_SRC emacs-lisp
 (require-package 'prettier-js)
 (add-hook 'js-mode-hook 'prettier-js-mode)
+(add-hook 'scss-mode-hook 'prettier-js-mode)
 #+END_SRC
 * Aesthetics
 ** Load theme
