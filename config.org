@@ -167,6 +167,9 @@ Assorted major modes...
 (require-package 'xelb)
 (require-package 'exwm)
 
+(add-to-list 'load-path "~/.emacs.d/elim/elisp")
+(load-library "garak")
+
 (require-package 'jabber)
 ;; (jabber-connect-all)
 ;; (jabber-display-roster)
@@ -233,6 +236,18 @@ Prettier lets us format stuff automatically!
 (require-package 'prettier-js)
 (add-hook 'js-mode-hook 'prettier-js-mode)
 (add-hook 'scss-mode-hook 'prettier-js-mode)
+#+END_SRC
+**** Rainbow delimiters
+#+BEGIN_SRC emacs-lisp
+(require-package 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+;; (add-hook 'js-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+**** Indent Guides
+#+BEGIN_SRC emacs-lisp
+(require-package 'highlight-indent-guides)
+(setq highlight-indent-guides-method 'character)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 #+END_SRC
 * Aesthetics
 ** Load theme

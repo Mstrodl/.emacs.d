@@ -91,7 +91,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (erlang jabber emms-player-mpv emms wakatime-mode rust-mode rjsx-mode pug-mode prettier-js package-lint mastodon markdown-preview-mode markdown-mode+ flycheck exwm evil elcord dracula-theme company-tern auto-complete))))
+    (highlight-indent-guides rainbow-delimiters erlang jabber emms-player-mpv emms wakatime-mode rust-mode rjsx-mode pug-mode prettier-js package-lint mastodon markdown-preview-mode markdown-mode+ flycheck exwm evil elcord dracula-theme company-tern auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

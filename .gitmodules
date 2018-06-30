@@ -4,3 +4,6 @@
 [submodule "tern"]
 	path = tern
 	url = https://github.com/ternjs/tern
+[submodule "elim"]
+	path = elim
+	url = git://git.savannah.gnu.org/elim.git
