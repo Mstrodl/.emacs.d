@@ -84,6 +84,7 @@
 ;;  ;; Your init file should contain only one such instance.
 ;;  ;; If there is more than one, they won't work right.
 ;;  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -91,7 +92,9 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (highlight-indent-guides rainbow-delimiters erlang jabber emms-player-mpv emms wakatime-mode rust-mode rjsx-mode pug-mode prettier-js package-lint mastodon markdown-preview-mode markdown-mode+ flycheck exwm evil elcord dracula-theme company-tern auto-complete))))
+    (svelte-mode company-c-headers graphql-mode lsp-java-boot lsp company-lsp lsp-ui yasnippet lsp-java dracula-theme highlight-indent-guides rainbow-delimiters prettier-js wakatime-mode company-tern company emms jabber exwm xelb pug-mode mastodon rjsx-mode markdown-mode+ rust-mode auto-complete flycheck package-lint evil)))
+ '(wakatime-cli-path "wakatime")
+ '(wakatime-python-bin nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

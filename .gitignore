@@ -11,3 +11,5 @@ elpa/*
 url/*
 image-dired
 emms/history
+workspace
+eclipse.jdt.ls

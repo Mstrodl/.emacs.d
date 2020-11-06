@@ -1,5 +1,6 @@
 #+TITLE: Emacs Configuration
 #+OPTIONS: 
+#+AUTHOR: Probably someone else, idk anymore
 
 
 * Foreword
@@ -8,10 +9,10 @@
 Yay MELPA is always nice!
 #+BEGIN_SRC emacs-lisp
 (require 'package)
-(add-to-list 'package-archives
-             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+(setq package-archives '(("GNU" . "http://elpa.gnu.org/packages/")
+                         ("MELPA Stable" . "http://stable.melpa.org/packages/")
+                         ("MELPA" . "http://melpa.org/packages/")))
+
 (package-initialize)
 #+END_SRC
 * Useful things
@@ -83,9 +84,12 @@ Hides the startup screen and jump straight to scratch buffer
 ** Indent levels
 Sets my indent levels to 2 spaces
 #+BEGIN_SRC emacs-lisp
+(setq typescript-indent-level 2)
 (setq js-indent-level 2)
+(setq js-jsx-indent-level 2)
+(setq css-indent-offset 2)
 (setq standard-indent 2)
-(setq py-indent-level 2)
+(setq python-indent-offset 2)
 #+END_SRC
 ** Disable Bell
 The bell is annoying since it beeps
@@ -159,6 +163,7 @@ The toolbar is dumb, I have my VIM bindings!!
 Assorted major modes...
 #+BEGIN_SRC emacs-lisp
 (require-package 'rust-mode)
+(require-package 'graphql-mode)
 (require-package 'markdown-mode+)
 (require-package 'rjsx-mode)
 (require-package 'flycheck)
@@ -166,6 +171,21 @@ Assorted major modes...
 (require-package 'pug-mode)
 (require-package 'xelb)
 (require-package 'exwm)
+
+(add-to-list 'load-path "~/.emacs.d/svelte-mode")
+(require 'svelte-mode)
+
+(require-package 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+
 
 (add-to-list 'load-path "~/.emacs.d/elim/elisp")
 (load-library "garak")
@@ -179,26 +199,86 @@ Assorted major modes...
       focus-follows-mouse t)
 ;; (require 'exwm-config)
 ;; (exwm-config-default)
+
+;; Java is fucking evil
+(setq lsp-log-io t)
+(setq lsp-print-io t)
+(require-package 'company-lsp)
+(require-package 'yasnippet)
+(require-package 'lsp-java)
+(require-package 'lsp-ui)
+(setq lsp-log-io t)
+(setq lsp-print-io t)
+(require 'lsp-java)
+(require 'yasnippet)
+(add-hook 'java-mode-hook #'lsp)
+(require-package 'company-c-headers)
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'company-c-headers))
+(add-hook 'c-mode-hook 'company-mode)
+(add-hook 'c++-mode-hook 'company-mode)
+(add-hook 'scss-mode-hook 'company-mode)
+#+END_SRC
+**** Web mode
+Web mode does lots of stuff for me that I don't want
+#+BEGIN_SRC emacs-lisp
+(add-hook 'web-mode-hook (lambda ()
+  (setq web-mode-enable-auto-closing nil)
+  (setq web-mode-enable-auto-opening nil)
+  (setq web-mode-enable-auto-quoting nil)
+  (setq web-mode-enable-auto-pairing nil)))
 #+END_SRC
 **** Org mode
 Org mode is good!
 #+BEGIN_SRC emacs-lisp
 (require-package 'org)
 #+END_SRC
+**** ESM Modules
+Mjs needs to be added to js
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.mjs\\'" . js-mode))
+#+END_SRC
 **** Erlang
 Erlang is a good...........
 #+BEGIN_SRC emacs-lisp
-(setq load-path (cons "/usr/lib/erlang/lib/tools-2.11.2/emacs" load-path))
-(setq erlang-root-dir "/usr/lib/erlang")
-(setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
-(require 'erlang-start)
+;; (setq load-path (cons "/usr/lib/erlang/lib/tools-2.11.2/emacs" load-path))
+;; (setq erlang-root-dir "/usr/lib/erlang")
+;; (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+;; (require 'erlang-start)
 #+END_SRC
+**** TIDE
+#+BEGIN_SRC emacs-lisp
+(setq tide-format-options '(:indentSize 2 :tabSize 2))
+
+(require-package 'tide)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+#+END_SRC
+
 *** Hook-ins
 Hook-ins with other programs
 **** Tern
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'tern
-  (add-to-list 'tern-command "/home/heatingdevice/.config/yarn/global/node_modules/.bin/tern"))
+  (add-to-list 'tern-command "/usr/bin/tern"))
 (require-package 'company)
 (require-package 'company-tern)
 (with-eval-after-load 'company
@@ -235,7 +315,10 @@ Prettier lets us format stuff automatically!
 #+BEGIN_SRC emacs-lisp
 (require-package 'prettier-js)
 (add-hook 'js-mode-hook 'prettier-js-mode)
+(add-hook 'typescript-mode-hook 'prettier-js-mode)
 (add-hook 'scss-mode-hook 'prettier-js-mode)
+(add-hook 'graphql-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
 #+END_SRC
 **** Rainbow delimiters
 #+BEGIN_SRC emacs-lisp
@@ -259,4 +342,9 @@ Load our theme to make us look nice
     ("ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" default)))
 (require-package 'dracula-theme)
 (load-theme 'dracula t)
+#+END_SRC
+** Fira code
+#+BEGIN_SRC emacs-lisp
+;(add-to-list 'load-path "~/.emacs.d/lisp")
+;(require 'fira-code-ligatures)
 #+END_SRC
