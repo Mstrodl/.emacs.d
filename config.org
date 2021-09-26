@@ -84,12 +84,18 @@ Hides the startup screen and jump straight to scratch buffer
 ** Indent levels
 Sets my indent levels to 2 spaces
 #+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
+(setq indent-line-function 'insert-tab)
+
 (setq typescript-indent-level 2)
 (setq js-indent-level 2)
 (setq js-jsx-indent-level 2)
 (setq css-indent-offset 2)
 (setq standard-indent 2)
 (setq python-indent-offset 2)
+(setq rust-indent-offset 2)
+(setq c-default-style "linux")
 #+END_SRC
 ** Disable Bell
 The bell is annoying since it beeps
@@ -100,9 +106,10 @@ The bell is annoying since it beeps
 ** Mail options
 So I can send mail like RMS says...
 #+BEGIN_SRC emacs-lisp
+(setq mail-host-address "coolmathgames.tech")
 (setq send-mail-function (quote smtpmail-send-it))
-(setq smtpmail-smtp-server "mail.memework.org")
-(setq smtpmail-smtp-service 25)
+(setq smtpmail-smtp-server "mail.twc.com")
+(setq smtpmail-smtp-service 587)
 #+END_SRC
 ** Evil options
 *** Searching
@@ -139,8 +146,7 @@ Set our mastodon instance url
 *** Hide Scrollbar
 I think the scrollbar is ugly and takes up too much space, so I hide it
 #+BEGIN_SRC emacs-lisp
-(when (display-graphic-p)
-  (toggle-scroll-bar -1))
+(scroll-bar-mode -1)
 #+END_SRC 
 *** Hide Toolbar
 The toolbar is dumb, I have my VIM bindings!!
@@ -171,9 +177,14 @@ Assorted major modes...
 (require-package 'pug-mode)
 (require-package 'xelb)
 (require-package 'exwm)
+(require-package 'lua-mode)
+(setq lua-indent-evel 2)
 
 (add-to-list 'load-path "~/.emacs.d/svelte-mode")
 (require 'svelte-mode)
+
+(add-to-list 'load-path "~/.emacs.d/cmake")
+(require 'cmake-mode)
 
 (require-package 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
@@ -331,6 +342,12 @@ Prettier lets us format stuff automatically!
 (require-package 'highlight-indent-guides)
 (setq highlight-indent-guides-method 'character)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+#+END_SRC
+**** TeX
+Enable LaTeX preview pane
+#+BEGIN_SRC emacs-lisp
+(require-package 'latex-preview-pane)
+(latex-preview-pane-enable)
 #+END_SRC
 * Aesthetics
 ** Load theme
