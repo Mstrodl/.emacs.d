@@ -10,3 +10,6 @@
 [submodule "svelte-mode"]
 	path = svelte-mode
 	url = https://github.com/leafOfTree/svelte-mode
+[submodule "dockerfile-mode"]
+	path = dockerfile-mode
+	url = https://github.com/spotify/dockerfile-mode.git

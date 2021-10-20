@@ -169,8 +169,9 @@ The toolbar is dumb, I have my VIM bindings!!
 Assorted major modes...
 #+BEGIN_SRC emacs-lisp
 (require-package 'rust-mode)
+(require-package 'yaml-mode)
 (require-package 'graphql-mode)
-(require-package 'markdown-mode+)
+(require-package 'markdown-mode)
 (require-package 'rjsx-mode)
 (require-package 'flycheck)
 (require-package 'mastodon)
@@ -178,10 +179,18 @@ Assorted major modes...
 (require-package 'xelb)
 (require-package 'exwm)
 (require-package 'lua-mode)
+(require-package 'puppet-mode)
 (setq lua-indent-evel 2)
 
 (add-to-list 'load-path "~/.emacs.d/svelte-mode")
 (require 'svelte-mode)
+
+(add-to-list 'load-path "~/.emacs.d/dockerfile-mode")
+(require 'dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+(add-to-list 'auto-mode-alist '("Containerfile\\'" . dockerfile-mode))
+(add-to-list 'auto-mode-alist '("Dockerfile\\.[^./][^/]\\'" . dockerfile-mode))
+(add-to-list 'auto-mode-alist '("Containerfile\\.[^./][^/]\\'" . dockerfile-mode))
 
 (add-to-list 'load-path "~/.emacs.d/cmake")
 (require 'cmake-mode)
@@ -214,7 +223,6 @@ Assorted major modes...
 ;; Java is fucking evil
 (setq lsp-log-io t)
 (setq lsp-print-io t)
-(require-package 'company-lsp)
 (require-package 'yasnippet)
 (require-package 'lsp-java)
 (require-package 'lsp-ui)
@@ -291,9 +299,8 @@ Hook-ins with other programs
 (with-eval-after-load 'tern
   (add-to-list 'tern-command "/usr/bin/tern"))
 (require-package 'company)
-(require-package 'company-tern)
 (with-eval-after-load 'company
-  (add-to-list 'company-backends 'company-tern))
+  (add-to-list 'company-backends 'company-capf))
 (add-hook 'js-mode-hook (lambda ()
                            (tern-mode)
                            (company-mode)))
