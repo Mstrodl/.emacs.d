@@ -146,12 +146,14 @@ Set our mastodon instance url
 *** Hide Scrollbar
 I think the scrollbar is ugly and takes up too much space, so I hide it
 #+BEGIN_SRC emacs-lisp
-(scroll-bar-mode -1)
+(if (display-graphic-p)
+  (scroll-bar-mode -1))
 #+END_SRC 
 *** Hide Toolbar
 The toolbar is dumb, I have my VIM bindings!!
 #+BEGIN_SRC emacs-lisp
-(tool-bar-mode -1)
+(if (display-graphic-p)
+  (tool-bar-mode -1))
 #+END_SRC
 * Packages
 ** Load our pacakges!
