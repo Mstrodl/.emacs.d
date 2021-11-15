@@ -146,14 +146,20 @@ Set our mastodon instance url
 *** Hide Scrollbar
 I think the scrollbar is ugly and takes up too much space, so I hide it
 #+BEGIN_SRC emacs-lisp
-(if (display-graphic-p)
-  (scroll-bar-mode -1))
+(add-hook 'before-make-frame-hook (lambda ()
+  (if (display-graphic-p)
+    (scroll-bar-mode -1))))
+(when (or (display-graphic-p) (daemonp))
+    (scroll-bar-mode -1))
 #+END_SRC 
 *** Hide Toolbar
 The toolbar is dumb, I have my VIM bindings!!
 #+BEGIN_SRC emacs-lisp
-(if (display-graphic-p)
-  (tool-bar-mode -1))
+(add-hook 'before-make-frame-hook (lambda ()
+  (if (display-graphic-p)
+    (tool-bar-mode -1))))
+(when (or (display-graphic-p) (daemonp))
+    (tool-bar-mode -1))
 #+END_SRC
 * Packages
 ** Load our pacakges!
