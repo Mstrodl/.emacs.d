@@ -9,13 +9,19 @@
 Yay MELPA is always nice!
 #+BEGIN_SRC emacs-lisp
 (require 'package)
-(setq package-archives '(("GNU" . "http://elpa.gnu.org/packages/")
-                         ("MELPA Stable" . "http://stable.melpa.org/packages/")
-                         ("MELPA" . "http://melpa.org/packages/")))
+(setq package-archives '(("GNU" . "https://elpa.gnu.org/packages/")
+                         ("MELPA Stable" . "https://stable.melpa.org/packages/")
+                         ("MELPA" . "https://melpa.org/packages/")))
 
 (package-initialize)
 #+END_SRC
 * Useful things
+** Bump GC threshold
+~lsp-mode~ suggests I do this:
+#+BEGIN_SRC emacs-lisp
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) 
+#+END_SRC
 ** Shortcut to need a package, installing if necessary
 Installs a package if needed and require it
 #+BEGIN_SRC emacs-lisp 
@@ -95,6 +101,7 @@ Sets my indent levels to 2 spaces
 (setq standard-indent 2)
 (setq python-indent-offset 2)
 (setq rust-indent-offset 2)
+(setq c-basic-offset 2)
 (setq c-default-style "linux")
 #+END_SRC
 ** Disable Bell
@@ -232,11 +239,12 @@ Assorted major modes...
 (setq lsp-log-io t)
 (setq lsp-print-io t)
 (require-package 'yasnippet)
-(require-package 'lsp-java)
+(require-package 'lsp-mode)
 (require-package 'lsp-ui)
+(setq lsp-completion-provider 'capf)
 (setq lsp-log-io t)
 (setq lsp-print-io t)
-(require 'lsp-java)
+(require-package 'lsp-java)
 (require 'yasnippet)
 (add-hook 'java-mode-hook #'lsp)
 (require-package 'company-c-headers)
@@ -244,7 +252,7 @@ Assorted major modes...
   (add-to-list 'company-backends 'company-c-headers))
 (add-hook 'c-mode-hook 'company-mode)
 (add-hook 'c++-mode-hook 'company-mode)
-(add-hook 'scss-mode-hook 'company-mode)
+(add-hook 'scss-mode-hook 'company-mode) 
 #+END_SRC
 **** Web mode
 Web mode does lots of stuff for me that I don't want
@@ -302,8 +310,17 @@ Erlang is a good...........
 
 *** Hook-ins
 Hook-ins with other programs
+
+**** Rust auto-complete
+#+BEGIN_SRC emacs-lisp
+(require-package 'lsp-mode)
+(require 'lsp-rust)
+(setq lsp-rust-server 'rust-analyzer)
+(add-hook 'rust-mode-hook #'lsp) 
+#+END_SRC
 **** Tern
 #+BEGIN_SRC emacs-lisp
+(require-package 'tern)
 (with-eval-after-load 'tern
   (add-to-list 'tern-command "/usr/bin/tern"))
 (require-package 'company)
