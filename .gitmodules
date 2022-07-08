@@ -1,6 +1,6 @@
 [submodule "elcord"]
 	path = elcord
-	url = git://github.com/Mstrodl/elcord.git
+	url = https://github.com/Mstrodl/elcord.git
 [submodule "tern"]
 	path = tern
 	url = https://github.com/ternjs/tern
@@ -13,3 +13,6 @@
 [submodule "dockerfile-mode"]
 	path = dockerfile-mode
 	url = https://github.com/spotify/dockerfile-mode.git
+[submodule "copilot.el"]
+	path = copilot.el
+	url = https://github.com/zerolfx/copilot.el.git
