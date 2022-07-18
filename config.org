@@ -95,17 +95,19 @@ Sets my indent levels to 2 spaces
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq indent-line-function 'insert-tab)
+(setq-default standard-indent (if (string= (system-name) "deli") 4 2))
+;; (setq-default indent-line-function 'insert-tab)
 
-(setq typescript-indent-level 2)
-(setq js-indent-level 2)
-(setq js-jsx-indent-level 2)
-(setq css-indent-offset 2)
-(setq standard-indent 2)
-(setq python-indent-offset 2)
-(setq rust-indent-offset 2)
-(setq c-basic-offset 2)
-(setq c-default-style "linux")
+(setq-default typescript-indent-level standard-indent)
+(setq-default js-indent-level standard-indent)
+(setq-default js-jsx-indent-level standard-indent)
+(setq-default css-indent-offset standard-indent)
+(setq-default python-indent-offset standard-indent)
+(setq-default c-basic-offset standard-indent)
+
+;; Nobody to disagree with me here :)
+(setq-default rust-indent-offset 2)
+(setq-default c-default-style "linux")
 #+END_SRC
 ** Disable Bell
 The bell is annoying since it beeps
