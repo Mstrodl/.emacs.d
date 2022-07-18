@@ -199,6 +199,7 @@ Assorted major modes...
 (require-package 'lua-mode)
 (require-package 'puppet-mode)
 (require-package 'php-mode)
+(require-package 'dts-mode)
 (setq lua-indent-evel 2)
 
 (add-to-list 'load-path "~/.emacs.d/svelte-mode")
@@ -227,7 +228,7 @@ Assorted major modes...
 
 
 (add-to-list 'load-path "~/.emacs.d/elim/elisp")
-(load-library "garak")
+;; (load-library "garak")
 
 (require-package 'jabber)
 ;; (jabber-connect-all)

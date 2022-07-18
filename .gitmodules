@@ -6,7 +6,7 @@
 	url = https://github.com/ternjs/tern
 [submodule "elim"]
 	path = elim
-	url = git://git.savannah.gnu.org/elim.git
+	url = https://git.savannah.gnu.org/elim.git
 [submodule "svelte-mode"]
 	path = svelte-mode
 	url = https://github.com/leafOfTree/svelte-mode
