@@ -202,6 +202,7 @@ Assorted major modes...
 (require-package 'puppet-mode)
 (require-package 'php-mode)
 (require-package 'dts-mode)
+(require-package 'dart-mode)
 (setq lua-indent-evel 2)
 
 (add-to-list 'load-path "~/.emacs.d/svelte-mode")
