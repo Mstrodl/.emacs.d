@@ -94,8 +94,10 @@ Hides the startup screen and jump straight to scratch buffer
 Sets my indent levels to 2 spaces
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
-(setq-default standard-indent (if (string= (system-name) "deli") 4 2))
+(setq-default standard-indent
+  ;; Work laptop / CS machines are 4 spaces
+  (if (or (string= (system-name) "promethium") (file-exists-p "/usr/local/dcs")) 4 2))
+(setq-default tab-width standard-indent)
 ;; (setq-default indent-line-function 'insert-tab)
 
 (setq-default typescript-indent-level standard-indent)
@@ -181,6 +183,9 @@ The toolbar is dumb, I have my VIM bindings!!
 (require-package 'flycheck)
 (require-package 'auto-complete)
 (setq tramp-default-method "ssh")
+(add-to-list 'load-path "~/.emacs.d/load")
+(require 'column-marker)
+(add-hook 'prog-mode-hook (lambda () (interactive) (column-marker-3 80)))
 
 ;; (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
 ;; (autoload 'tern-mode "tern.el" nil t)
@@ -260,7 +265,8 @@ Assorted major modes...
   (add-to-list 'company-backends 'company-c-headers))
 (add-hook 'c-mode-hook 'company-mode)
 (add-hook 'c++-mode-hook 'company-mode)
-(add-hook 'scss-mode-hook 'company-mode) 
+(add-hook 'scss-mode-hook 'company-mode)
+(add-hook 'prog-mode-hook 'company-mode)
 #+END_SRC
 **** Web mode
 Web mode does lots of stuff for me that I don't want
