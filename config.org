@@ -327,31 +327,32 @@ Hook-ins with other programs
 
 **** Copilot
 #+BEGIN_SRC emacs-lisp
-;; Required for copilot.el:
-(require-package 'dash)
-(require-package 's)
-(require-package 'editorconfig)
-
-(load-file "~/.emacs.d/copilot.el/copilot.el")
 (if (string= (system-name) "twinkpad")
-  (setq copilot-node-executable "/home/mary/.local/share/nodejs-lts/bin/node"))
-(add-hook 'prog-mode-hook 'copilot-mode)
+  (progn
+  (require-package 'dash)
+  (require-package 's)
+  (require-package 'editorconfig)
 
-; complete by copilot first, then company-mode
-(defun my-tab ()
-  (interactive)
-  (or (copilot-accept-completion)
+  (load-file "~/.emacs.d/copilot.el/copilot.el")
+  (if (string= (system-name) "twinkpad")
+    (setq copilot-node-executable "/home/mary/.local/share/nodejs-lts/bin/node"))
+  (add-hook 'prog-mode-hook 'copilot-mode)
+
+                    ; complete by copilot first, then company-mode
+  (defun my-tab ()
+    (interactive)
+    (or (copilot-accept-completion)
       (company-indent-or-complete-common nil)))
 
-; modify company-mode behaviors
-(with-eval-after-load 'company
-  ;; disable inline previews
-  (delq 'company-preview-if-just-one-frontend company-frontends)
+                    ; modify company-mode behaviors
+  (with-eval-after-load 'company
+    ;; disable inline previews
+    (delq 'company-preview-if-just-one-frontend company-frontends)
 
-  (define-key company-mode-map (kbd "<tab>") 'my-tab)
-  (define-key company-mode-map (kbd "TAB") 'my-tab)
-  (define-key company-active-map (kbd "<tab>") 'my-tab)
-  (define-key company-active-map (kbd "TAB") 'my-tab))
+    (define-key company-mode-map (kbd "<tab>") 'my-tab)
+    (define-key company-mode-map (kbd "TAB") 'my-tab)
+    (define-key company-active-map (kbd "<tab>") 'my-tab)
+    (define-key company-active-map (kbd "TAB") 'my-tab))))
 #+END_SRC
 **** Rust auto-complete
 #+BEGIN_SRC emacs-lisp
