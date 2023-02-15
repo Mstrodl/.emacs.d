@@ -90,6 +90,12 @@ Hides the startup screen and jump straight to scratch buffer
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
 #+END_SRC
+** Fix font size
+1366x768 my beloved
+#+BEGIN_SRC emacs-lisp
+(if (string= (system-name) "promethium")
+  (set-face-attribute 'default nil :height 150))
+#+END_SRC
 ** Indent levels
 Sets my indent levels to 2 spaces
 #+BEGIN_SRC emacs-lisp
@@ -233,6 +239,7 @@ Assorted major modes...
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
 
 
 (add-to-list 'load-path "~/.emacs.d/elim/elisp")
@@ -317,7 +324,7 @@ Erlang is a good...........
 (setq company-tooltip-align-annotations t)
 
 ;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
+;; (add-hook 'before-save-hook 'tide-format-before-save)
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 #+END_SRC
