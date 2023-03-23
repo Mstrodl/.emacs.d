@@ -214,6 +214,7 @@ Assorted major modes...
 (require-package 'php-mode)
 (require-package 'dts-mode)
 (require-package 'dart-mode)
+(require-package 'scad-mode)
 (setq lua-indent-evel 2)
 
 (add-to-list 'load-path "~/.emacs.d/svelte-mode")
@@ -334,16 +335,16 @@ Hook-ins with other programs
 
 **** Copilot
 #+BEGIN_SRC emacs-lisp
-(if (string= (system-name) "twinkpad")
+(if (or (string= (system-name) "twinkpad") (string= (system-name) "chompad"))
   (progn
   (require-package 'dash)
   (require-package 's)
   (require-package 'editorconfig)
 
   (load-file "~/.emacs.d/copilot.el/copilot.el")
-  (if (string= (system-name) "twinkpad")
+  (if (or (string= (system-name) "twinkpad") (string= (system-name) "chompad"))
     (setq copilot-node-executable "/home/mary/.local/share/nodejs-lts/bin/node"))
-  (add-hook 'prog-mode-hook 'copilot-mode)
+  ;; (add-hook 'prog-mode-hook 'copilot-mode)
 
                     ; complete by copilot first, then company-mode
   (defun my-tab ()
@@ -368,6 +369,7 @@ Hook-ins with other programs
 (setq lsp-rust-server 'rust-analyzer)
 (add-hook 'rust-mode-hook #'lsp) 
 (add-hook 'lsp-mode-hook #'company-mode) 
+(setq rust-format-on-save t)
 #+END_SRC
 **** Tern
 #+BEGIN_SRC emacs-lisp
