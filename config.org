@@ -199,6 +199,7 @@ The toolbar is dumb, I have my VIM bindings!!
 *** Major modes
 Assorted major modes...
 #+BEGIN_SRC emacs-lisp
+(setq rust-mode-treesitter-derive t)
 (require-package 'rust-mode)
 (require-package 'yaml-mode)
 (require-package 'graphql-mode)
@@ -230,6 +231,10 @@ Assorted major modes...
 (add-to-list 'load-path "~/.emacs.d/cmake")
 (require 'cmake-mode)
 
+(add-to-list 'load-path "~/.emacs.d/pest-mode")
+(autoload 'pest-mode "pest-mode")
+(add-to-list #'auto-mode-alist '("\\.pest\\'" . pest-mode))
+
 (require-package 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -257,16 +262,17 @@ Assorted major modes...
 ;; (exwm-config-default)
 
 ;; Java is fucking evil
-(setq lsp-log-io t)
-(setq lsp-print-io t)
+(setq lsp-log-io nil)
+(setq lsp-print-io nil)
 (require-package 'yasnippet)
 (require-package 'lsp-mode)
 (require-package 'lsp-ui)
 (setq lsp-completion-provider 'capf)
-(setq lsp-log-io t)
-(setq lsp-print-io t)
-(require-package 'lsp-java)
+(setq lsp-log-io nil)
+(setq lsp-print-io nil)
+;;(require-package 'lsp-java)
 (require 'yasnippet)
+(yas-global-mode)
 (add-hook 'java-mode-hook #'lsp)
 (require-package 'company-c-headers)
 (with-eval-after-load 'company
