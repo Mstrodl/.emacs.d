@@ -16,3 +16,6 @@
 [submodule "copilot.el"]
 	path = copilot.el
 	url = https://github.com/zerolfx/copilot.el.git
+[submodule "pest-mode"]
+	path = pest-mode
+	url = https://github.com/ksqsf/pest-mode
