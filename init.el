@@ -11,6 +11,7 @@
    '("55c2069e99ea18e4751bd5331b245a2752a808e91e09ccec16eb25dadbe06354"
      "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb"
      default))
+ '(mouse-wheel-progressive-speed nil)
  '(package-selected-packages
    '(auto-complete company company-c-headers company-lsp company-tern
                    docker-mode dracula-theme emms evil exwm flycheck

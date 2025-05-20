@@ -19,7 +19,7 @@ Yay MELPA is always nice!
 ** Bump GC threshold
 ~lsp-mode~ suggests I do this:
 #+BEGIN_SRC emacs-lisp
-(setq gc-cons-threshold 100000000)
+(setq gc-cons-threshold 1000000000)
 (setq read-process-output-max (* 1024 1024)) 
 #+END_SRC
 ** Shortcut to need a package, installing if necessary
@@ -248,7 +248,7 @@ Assorted major modes...
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
-
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 
 (add-to-list 'load-path "~/.emacs.d/elim/elisp")
 ;; (load-library "garak")
