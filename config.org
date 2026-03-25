@@ -377,6 +377,8 @@ Hook-ins with other programs
 (require 'lsp-rust)
 (setq lsp-rust-server 'rust-analyzer)
 (add-hook 'rust-mode-hook #'lsp)
+(add-hook 'rust-mode-hook (lambda ()
+                           (setq lsp-format-buffer-on-save t)))
 ;(add-hook 'rust-mode-hook #'tree-sitter-mode)
 ;(add-hook 'rust-mode-hook #'tree-sitter-hl-mode)
 (add-hook 'lsp-mode-hook #'company-mode) 
