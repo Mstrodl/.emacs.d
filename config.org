@@ -157,11 +157,6 @@ Scratch buffers are super useful! C-x j opens a JS scratch buffer
 (define-key global-map "\C-xj" 'create-js-scratch-buffer)
 ;; (define-key global-map "\C-xs" 'create-scratch-buffer)
 #+END_SRC
-** Mastodon
-Set our mastodon instance url
-#+BEGIN_SRC emacs-lisp 
-(setq mastodon-instance-url "https://mastodon.memework.org")
-#+END_SRC
 ** UI Tweaks
 *** Hide Scrollbar
 I think the scrollbar is ugly and takes up too much space, so I hide it
@@ -189,6 +184,7 @@ The toolbar is dumb, I have my VIM bindings!!
 (require-package 'flycheck)
 (require-package 'auto-complete)
 (setq tramp-default-method "ssh")
+(with-eval-after-load "tramp" (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 (add-to-list 'load-path "~/.emacs.d/load")
 (require 'column-marker)
 (add-hook 'prog-mode-hook (lambda () (interactive) (column-marker-3 80)))
@@ -199,6 +195,7 @@ The toolbar is dumb, I have my VIM bindings!!
 *** Major modes
 Assorted major modes...
 #+BEGIN_SRC emacs-lisp
+(add-to-list 'treesit-extra-load-path  "~/.emacs.d/sitter-grammars-osx")
 (require 'rust-ts-mode)
 (setq auto-mode-alist (assoc-delete-all "\\.rs\\'" auto-mode-alist))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
@@ -209,7 +206,6 @@ Assorted major modes...
 (require-package 'markdown-mode)
 (require-package 'rjsx-mode)
 (require-package 'flycheck)
-(require-package 'mastodon)
 (require-package 'pug-mode)
 (require-package 'xelb)
 (require-package 'exwm)
@@ -219,6 +215,7 @@ Assorted major modes...
 (require-package 'dts-mode)
 (require-package 'dart-mode)
 (require-package 'scad-mode)
+(require-package 'terraform-mode)
 (setq lua-indent-evel 2)
 
 (add-to-list 'load-path "~/.emacs.d/svelte-mode")
